@@ -1,25 +1,27 @@
-const blogs = [
-  { id: 1, title: "theBlog", author: "Blogger2", url: "google.com", likes: 9 },
-  { id: 2, title: "theBlogz", author: "Blogger1", url: "bing.com", likes: 0 },
-  { id: 3, title: "theBlogs", author: "Blogger3", url: "yahoo.com", likes: 19 },
-]
+import { eq } from "drizzle-orm"
+import { db } from "../../db"
+import { blogs } from "../../db/schema"
 
-let nextId = 4
-
-export const getBlogs = () => {
-  const shallowCopy = [...blogs]
-  return shallowCopy.sort((a, b) => b.likes - a.likes)
+export const getBlogs = async () => {
+  const allBlogs = await db.query.blogs.findMany()
+  return allBlogs.sort((a, b) => b.likes - a.likes)
 }
 
-export const addBlog = (title: string, author: string, url: string, likes: number) => {
-  blogs.push({ id: nextId++, title, author, url, likes })
+export const addBlog = async (title: string, author: string, url: string, likes: number) => {
+  await db.insert(blogs).values({ title, author, url, likes })
 }
-export const getBlogById = (id: number) => {
-  return blogs.find((blog) => blog.id === id)
+export const getBlogById = async (id: number) => {
+  return db.query.blogs.findFirst({
+    where: eq(blogs.id, id),
+  })
 }
-export const like = (id: number) => {
-  const blog = blogs.find((blog) => blog.id === id)
+export const like = async (id: number) => {
+  const blog = await getBlogById(id)
   if (blog) {
-    blog.likes++
+    await db
+      .update(blogs)
+      .set({ likes: blog.likes + 1 })
+      .where(eq(blogs.id, id))
   }
+
 }
