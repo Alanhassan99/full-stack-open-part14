@@ -22,7 +22,7 @@ const Blogs = async ({
         {blogs.map(blog => (
           <li style={{ marginBottom: 10 }} key={blog.id}>
             <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
-            <div><strong>title:</strong> {blog.title}</div>
+            <div><strong>Title:</strong> {blog.title}</div>
             <div><strong>author:</strong> {blog.author}</div>
             <div><strong>url:</strong> {blog.url}</div>
             <div><strong>likes:</strong> {blog.likes}</div>
