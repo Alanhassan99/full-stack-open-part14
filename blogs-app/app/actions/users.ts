@@ -30,7 +30,7 @@ export const registerUser = async (prevState: UserFormState, formData: FormData)
     errors.password = "Password must be at least 4 characters long"
   }
   if (password !== passwordConfirm) {
-    errors.password = "Passwords must be the same"
+    errors.passwordConfirm = "Passwords must be the same"
   }
   if (Object.keys(errors).length > 0) {
     return { errors, values: { username, password, passwordConfirm } }

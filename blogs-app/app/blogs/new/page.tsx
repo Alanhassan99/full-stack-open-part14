@@ -40,12 +40,12 @@ const NewBlog = () => {
         </div>
         <div>
           <label>
-            Url
+            URL
             <input className="mt-2 ml-2 rounded border-2" type="text" name="url" required defaultValue={state.values?.url} />
             {state.errors?.url && <p style={{ color: "red" }}>{state.errors.url}</p>}
           </label>
         </div>
-        <button className="rounded p-1 border-2 mt-2 hover:bg-green-700" type="submit">Create</button>
+        <button className="rounded p-1 border-2 mt-2 hover:bg-green-700" type="submit" data-testid="create-blog-button">Create</button>
       </form>
     </div>
   )

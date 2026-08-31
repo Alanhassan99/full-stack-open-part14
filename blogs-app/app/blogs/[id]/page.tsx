@@ -20,22 +20,29 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   return (
-    <div className="mt-10 ml-10">
-      <h2><em><strong>TITLE:</strong></em> {blog.title}</h2>
-      <p><em><strong>AUTHOR:</strong></em> {blog.author}</p>
+    <div className="mt-10 ml-10" data-testid="blog-detail">
+      <h2><em><strong>TITLE:</strong></em> <span data-testid="blog-title">{blog.title}</span></h2>
+      <p><em><strong>AUTHOR:</strong></em> <span data-testid="blog-author">{blog.author}</span></p>
       <p><em><strong>URL:</strong></em> {blog.url}</p>
-      <div><p><em><strong>LIKES:</strong></em> {blog.likes}</p><form action={increaseLike}>
-        <input type="hidden" name="id" value={blog.id} />
-        <button className="rounded p-1 border-2 hover:bg-green-700" type="submit">Like
-        </button>
-      </form>
+      <div>
+        <p><em><strong>LIKES:</strong></em> {blog.likes}</p>
+        <form action={increaseLike}>
+          <input type="hidden" name="id" value={blog.id} />
+          <button className="rounded p-1 border-2 hover:bg-green-700" type="submit">Like</button>
+        </form>
         {user && user.id !== blog.userId && (
           <form action={addToReadingList}>
             <input type="hidden" name="blogId" value={blog.id} />
-            <button className="rounded p-1 border-2 hover:bg-green-700">add to reading list</button>
+            <button
+              className="rounded p-1 border-2 hover:bg-green-700"
+              data-testid="add-to-reading-list-button"
+            >
+              add to reading list
+            </button>
           </form>
-        )}</div>
-    </div >
+        )}
+      </div>
+    </div>
   )
 }
 
