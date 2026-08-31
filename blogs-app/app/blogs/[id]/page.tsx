@@ -3,8 +3,8 @@ import { getBlogById } from "@/app/services/blogs"
 import { increaseLike } from "@/app/actions/blogs"
 import { auth } from "@/auth"
 import { db } from "@/db"
-import { users } from "@/db/schema"
 import { eq } from "drizzle-orm"
+import { users } from "@/db/schema"
 import { addToReadingList } from "@/app/actions/readinglist"
 
 const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
