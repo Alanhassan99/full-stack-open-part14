@@ -48,10 +48,7 @@ export const generateToken = async () => {
     return redirect("/login")
   }
   const username = session.user?.email as string
-  const user = await db.query.users.findFirst({
-    where: eq(users.username, username as string),
-  })
   const theToken = crypto.randomUUID()
-  await db.update(users).set({ token: theToken }).where(eq(users.id, user!.id))
+  await db.update(users).set({ token: theToken }).where(eq(users.username, username))
   revalidatePath("/me")
 }
