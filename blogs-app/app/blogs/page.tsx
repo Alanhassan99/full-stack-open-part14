@@ -12,16 +12,16 @@ const Blogs = async ({
     ? allBlogs.filter((blog) => blog.title.toLowerCase().includes(filter.toLowerCase()))
     : allBlogs
   return (
-    <div>
-      <h2>Blogs</h2>
+    <div className="max-w-2xl p-6">
+      <h2 className="text-2xl font-bold mb-4">Blogs</h2>
       <form method="get">
-        <input type="text" name="filter" />
-        <button type="submit">search</button>
+        <input type="text" name="filter" className="border-1 mr-2" />
+        <button className="bg-blue-500 hover:bg-red-500 px-3 py-1 mb-4 rounded text-sm" type="submit">search</button>
       </form>
-      <ul>
+      <ul className="space-y-2">
         {blogs.map(blog => (
-          <li style={{ marginBottom: 10 }} key={blog.id}>
-            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+          <li className="border-2 rounded p-3 hover:bg-gray-50" key={blog.id}>
+            <Link className="border-2 rounded hover:bg-gray-500 p-1" href={`/blogs/${blog.id}`}>{blog.title}</Link>
             <div><strong>Title:</strong> {blog.title}</div>
             <div><strong>author:</strong> {blog.author}</div>
             <div><strong>url:</strong> {blog.url}</div>

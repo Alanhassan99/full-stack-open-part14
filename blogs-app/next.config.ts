@@ -1,8 +1,16 @@
-import type { NextConfig } from "next";
-import path from "path";
+import path from "path"
+import createMDX from '@next/mdx'
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   outputFileTracingRoot: path.join(__dirname),
-};
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  experimental: {
+    mdxRs: true,
+  },
+}
 
-export default nextConfig;
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+})
+
+export default withMDX(nextConfig)

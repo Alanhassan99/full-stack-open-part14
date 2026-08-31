@@ -1,6 +1,8 @@
 import { eq } from "drizzle-orm"
 import { db } from "../../db"
-import { blogs } from "../../db/schema"
+import { blogs, readingList } from "../../db/schema"
+import { getCurrentUser } from "./session"
+
 
 export const getBlogs = async () => {
   const allBlogs = await db.query.blogs.findMany()
@@ -8,8 +10,15 @@ export const getBlogs = async () => {
 }
 
 export const addBlog = async (title: string, author: string, url: string, likes: number) => {
-  await db.insert(blogs).values({ title, author, url, likes })
+  const user = await getCurrentUser()
+  if (!user) {
+    throw new Error("Not logged in")
+  }
+
+  const [newBlog] = await db.insert(blogs).values({ title, author, url, likes, userId: user.id }).returning()
+  await db.insert(readingList).values({ blogId: newBlog.id, userId: user.id })
 }
+
 export const getBlogById = async (id: number) => {
   return db.query.blogs.findFirst({
     where: eq(blogs.id, id),

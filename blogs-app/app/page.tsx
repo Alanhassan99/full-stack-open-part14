@@ -1,4 +1,10 @@
+import Homepage from "./content/home.md"
 const Home = () => {
-  return <div>hello next.js</div>
+  return (
+    <div className="markdown">
+      <Homepage />
+    </div>
+  )
+
 }
 export default Home
